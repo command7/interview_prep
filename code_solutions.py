@@ -1,10 +1,10 @@
 import logging
 
 
-def binary_search(nums, target, formatter):
+def binary_search(nums, target, format):
     logger = setup_logger('binary_search',
                           'logs/binary_search.log',
-                          formatter)
+                          format)
     total_numbers = len(nums)
     logger.info(f'Number of elements : {total_numbers}')
     logger.info(f'Value to be found : {target}')
@@ -36,10 +36,58 @@ def mySqrt(x):
     return int(x ** (1/2))
 
 
-def setup_logger(name, log_file, formatter, level=logging.INFO):
+def rotated_binary_search(nums, target, format):
+    logger = setup_logger('rotated_binary_search',
+                          'logs/rotated_binary_search',
+                          format)
+
+    # fixing rotated list
+    offset = 0
+    logger.info(f'Initial List : {nums}')
+    for i in range(len(nums) - 1):
+        if nums[i] > nums[i+1]:
+            offset = i+1
+            nums = nums[i+1:] + nums[:i+1]
+            break
+    logger.info(f'After sorting list : {nums}\n')
+
+    start_index = 0
+    logger.info(f'Starting Index : {start_index}')
+    end_index = len(nums) - 1
+    logger.info(f'Ending Index : {end_index}')
+    mid_index = (start_index + end_index) // 2
+    logger.info(f'Mid Index : {mid_index}\n')
+
+    while start_index <= end_index:
+        mid_value = nums[mid_index]
+        logger.info(f'New middle value : {mid_value}')
+        if mid_value > target:
+            logger.info(f'{mid_value} > {target}')
+            end_index = mid_index - 1
+            logger.info(f'New ending index : {end_index}')
+            mid_index = (start_index + end_index) // 2
+            logger.info(f'New middle index : {mid_index}\n')
+        elif mid_value < target:
+            logger.info(f'{mid_value} < {target}')
+            start_index = mid_index + 1
+            logger.info(f'New starting index : {start_index}')
+            mid_index = (start_index + end_index) // 2
+            logger.info(f'New middle index : {mid_index}\n')
+        else:
+            element_index = (mid_index + offset) % len(nums)
+            logger.info(f'Element is found in index {element_index}')
+            return element_index
+    logger.info('Element not found in list')
+    return -1
+
+
+
+
+
+def setup_logger(name, log_file, format, level=logging.INFO):
     handler = logging.FileHandler(log_file,
                                   mode='w')
-    handler.setFormatter(formatter)
+    handler.setFormatter(format)
     logger = logging.getLogger(name)
     logger.setLevel(level)
     logger.addHandler(handler)
@@ -48,6 +96,4 @@ def setup_logger(name, log_file, formatter, level=logging.INFO):
 
 if __name__ == '__main__':
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    binary_search([1,2,3,4,5,5],
-                  2,
-                  formatter)
+    rotated_binary_search([4, 5, 6, 7, 0, 1, 2], 0, formatter)
