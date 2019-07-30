@@ -98,6 +98,18 @@ def rotated_binary_search(nums, target, format):
     return -1
 
 
+def fibonacci_iterative(n):
+    result_list = [0, 1 ,1]
+    if n <= len(result_list) - 1:
+        return result_list[n]
+    else:
+        first_num = result_list[1]
+        second_num = result_list[2]
+        for i in range(3, n+1):
+            current_sum = first_num + second_num
+            first_num = second_num
+            second_num = current_sum
+    return second_num
 
 
 
@@ -113,4 +125,4 @@ def setup_logger(name, log_file, format, level=logging.INFO):
 
 if __name__ == '__main__':
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    print(factorial_recursive(4))
+    print(fibonacci_iterative(7))
