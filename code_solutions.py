@@ -118,6 +118,9 @@ def fibonacci_recursive(n):
     return fibonacci_recursive(n-1) + fibonacci_recursive(n-2)
 
 
+def reverse_string(sentence):
+    return sentence[::-1]
+
 
 def setup_logger(name, log_file, format, level=logging.INFO):
     handler = logging.FileHandler(log_file,
