@@ -112,6 +112,12 @@ def fibonacci_iterative(n):
     return second_num
 
 
+def fibonacci_recursive(n):
+    if n < 2:
+        return n
+    return fibonacci_recursive(n-1) + fibonacci_recursive(n-2)
+
+
 
 def setup_logger(name, log_file, format, level=logging.INFO):
     handler = logging.FileHandler(log_file,
@@ -125,4 +131,4 @@ def setup_logger(name, log_file, format, level=logging.INFO):
 
 if __name__ == '__main__':
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    print(fibonacci_iterative(7))
+    print(reverse_string('hello j'))
