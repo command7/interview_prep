@@ -36,6 +36,23 @@ def mySqrt(x):
     return int(x ** (1/2))
 
 
+def factorial_iterative(n):
+    result = 1
+    if n in [0, 1, 2]:
+        return n
+    for num in range(n, 1, -1):
+        result = result * num
+    return result
+
+
+def factorial_recursive(n):
+    # base case
+    if n <= 1:
+        return n
+    # return case
+    return n * factorial_recursive(n-1)
+
+
 def rotated_binary_search(nums, target, format):
     logger = setup_logger('rotated_binary_search',
                           'logs/rotated_binary_search',
@@ -96,4 +113,4 @@ def setup_logger(name, log_file, format, level=logging.INFO):
 
 if __name__ == '__main__':
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    rotated_binary_search([4, 5, 6, 7, 0, 1, 2], 0, formatter)
+    print(factorial_recursive(4))
